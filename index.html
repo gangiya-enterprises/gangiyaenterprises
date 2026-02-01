@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gangiya Enterprises | GE Infra Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; --black: #000000; --grey: #121212; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--black); color: white; overflow-x: hidden; }
+
+        /* Navigation Bar */
+        .nav { display: flex; justify-content: space-between; padding: 15px; background: #111; border-bottom: 1px solid var(--gold); position: sticky; top:0; z-index: 1000; }
+        .menu-btn { font-size: 24px; color: var(--gold); cursor: pointer; }
+
+        /* Sidebar Profile Section */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background: var(--grey); overflow-x: hidden; transition: 0.5s; padding-top: 60px; border-right: 1px solid var(--gold); }
+        .sidebar a { padding: 15px 25px; text-decoration: none; color: #ccc; display: block; font-size: 18px; border-bottom: 1px solid #222; }
+        .user-header { text-align: center; padding: 20px; border-bottom: 2px solid var(--gold); margin-bottom: 10px; }
+        .user-header i { font-size: 60px; color: var(--gold); }
+
+        /* Main Content */
+        header { text-align: center; padding: 30px 10px; }
+        .logo { font-size: 2.2rem; color: var(--gold); font-weight: bold; letter-spacing: 3px; margin: 0; text-transform: uppercase; }
+
+        /* Price Table Section */
+        .price-box { width: 92%; margin: 10px auto; background: var(--grey); border: 1px solid var(--gold); border-radius: 12px; padding: 15px; box-sizing: border-box; }
+        .price-table { width: 100%; border-collapse: collapse; text-align: center; }
+        .price-table th { color: var(--gold); border-bottom: 2px solid #333; padding: 10px; font-size: 14px; }
+        .price-table td { padding: 12px; border-bottom: 1px solid #222; font-size: 15px; }
+
+        /* Dashboard Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .card { background: var(--grey); padding: 15px; text-align: center; border-radius: 15px; border: 1px solid #333; transition: 0.3s; position: relative; }
+        .card:hover { border-color: var(--gold); }
+        .card img { width: 100%; height: 110px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+        .card h3 { font-size: 0.95rem; margin: 5px 0; color: var(--gold); }
+
+        /* WhatsApp Float */
+        .wa-float { position: fixed; bottom: 25px; right: 25px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; color: white; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 1500; }
+    </style>
+</head>
+<body>
+
+<div id="sideNav" class="sidebar">
+    <a href="javascript:void(0)" onclick="closeMenu()" style="font-size:35px; color:var(--gold); text-align:right;">&times;</a>
+    <div class="user-header">
+        <i class="fa fa-user-circle"></i>
+        <h3 style="margin:10px 0 5px;">Bikki Das</h3>
+        <p style="font-size:12px; color:#888;">GE Infra Verified Member</p>
+    </div>
+    <a href="#"><i class="fa fa-shopping-bag"></i> My Orders</a>
+    <a href="#"><i class="fa fa-user-plus"></i> Register / Sign Up</a>
+    <a href="https://wa.me/918292327117"><i class="fa fa-headset"></i> Support Help</a>
+</div>
+
+<div class="nav">
+    <i class="fa fa-bars menu-btn" onclick="openMenu()"></i>
+    <span style="color:var(--gold); font-weight:bold; letter-spacing:1px;">GE INFRA</span>
+    <i class="fa fa-bell" style="color:var(--gold); font-size:20px;"></i>
+</div>
+
+<header>
+    <div class="logo">Gangiya Enterprises</div>
+    <p style="color:#777; font-size:14px; margin-top:5px;">Tisri | Gawan | Giridih | Jharkhand</p>
+</header>
+
+<div class="price-box">
+    <h3 style="color:var(--gold); margin-top:0; font-size:1.1rem; border-bottom:1px solid #333; padding-bottom:10px;">
+        <i class="fa fa-bolt"></i> Today's Live Rates
+    </h3>
+    <table class="price-table" id="rateTable">
+        <tr><th>Material</th><th>Rate</th><th>Trend</th></tr>
+        <tr><td>Balu (Sand)</td><td>₹1,850</td><td style="color:green">▲</td></tr>
+        <tr><td>Gitti (Stone)</td><td>₹68</td><td style="color:red">▼</td></tr>
+        <tr><td>Sariya (TMT)</td><td>₹72</td><td style="color:green">▲</td></tr>
+    </table>
+</div>
+
+<div class="grid">
+    <div class="card"><img src="images/balu.png"><h3>Construction</h3></div>
+    <div class="card"><img src="images/jcb.png"><h3>Machinery</h3></div>
+    <div class="card"><img src="images/tractor.png"><h3>Agriculture</h3></div>
+    <div class="card"><img src="images/water.png"><h3>Water Tanker</h3></div>
+</div>
+
+<a href="https://wa.me/918292327117" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    // 1. Sidebar Control
+    function openMenu() { document.getElementById("sideNav").style.width = "280px"; }
+    function closeMenu() { document.getElementById("sideNav").style.width = "0"; }
+
+    // 2. Google Sheet Automatic Update Logic
+    // Is link ki jagah apni Google Sheet ka CSV link dalein
+    const csvURL = 'YOUR_GOOGLE_SHEET_CSV_LINK_HERE'; 
+
+    async function fetchLiveRates() {
+        try {
+            const response = await fetch(csvURL);
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+            let tableContent = '<tr><th>Material</th><th>Rate</th><th>Trend</th></tr>';
+            
+            rows.forEach(row => {
+                const cols = row.split(',');
+                if(cols[0] && cols[1]) {
+                    const trendIcon = cols[2]?.trim() === 'up' ? '<span style="color:green">▲</span>' : '<span style="color:red">▼</span>';
+                    tableContent += `<tr><td>${cols[0]}</td><td>₹${cols[1]}</td><td>${trendIcon}</td></tr>`;
+                }
+            });
+            document.getElementById('rateTable').innerHTML = tableContent;
+        } catch (error) {
+            console.log("Sheet not published or link missing. Showing default rates.");
+        }
+    }
+
+    // Run update on load
+    window.onload = fetchLiveRates;
+</script>
+
+</body>
+</html>
